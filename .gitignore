@@ -1,6 +1,13 @@
 # Prerequisites
 *.d
 
+# Anything Compiled
+build/
+
+# Files Added for VSCode
+.DS_Store
+settings.json
+
 # Compiled Object files
 *.slo
 *.lo
