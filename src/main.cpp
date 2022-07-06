@@ -10,9 +10,14 @@ int main()
     std::cout << "Number of SDRs = " << kList.size() << '\n'; 
     for(auto& kwargs : kList)
     {
+        if(kwargs.find("tuner") != kwargs.end())
+        {
+            std::cout << "Tuner: " << kwargs["tuner"] << '\n';
+        }
+        std::cout << "All Device Arguments:\n";
         for(const auto& [key, _] : kwargs)
         {
-            std::cout << key << ": " << kwargs[key] << '\n';
+            std::cout << "    " << key << ": " << kwargs[key] << '\n';
         }
     }
 }
