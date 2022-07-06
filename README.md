@@ -11,9 +11,26 @@ other OSes.
 ## Building on MacOS
 To build this application on MacOS, do the following:
 1. Install Xcode and the Xcode command line utilities.
-2. cd \<your projects folder\>
-3. git clone https://github.com/jimorc/SDREnumerator.git
-4. cd SDREnumerator
-5. mkdir build
-6. cd build
-7. Run CMake and build the application.
+1. Install the required libraries using Homebrew or MacPorts. Some libraries are only available on MacPorts. Because I only have an RTL-SDR dongle,
+   that is the only library I installed:
+
+   > % sudo port install SoapyRTLSDR
+
+   Homebrew and MacPorts will install all libraries that SoapyRTLSDR depends on, including SoapySDR.
+1. Now download and build SDREnumerator
+   > % cd _\<your projects folder\>_
+   >
+   > % git clone https://github.com/jimorc/SDREnumerator.git
+   >
+   > % cd SDREnumerator
+   >
+   > % mkdir build
+   >
+   > % cd build
+   >
+   > % cmake ..
+   >
+   > % make
+   
+   If you are using an IDE, then modify the _cmake_ line to generate the project files
+    for that IDE. If you are using an IDE, then the _make_ line is probably not needed.
