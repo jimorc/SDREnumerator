@@ -71,7 +71,7 @@ int main()
         auto info = dev.getHardwareInfo();
         std::cout << "Hardware Info:\n";
         Print::printStringMap(info, 4);
-        const auto& rxFrontendMapping = device->getFrontendMapping(SOAPY_SDR_RX);
+        const auto& rxFrontendMapping = dev.getRXFrontendMapping();
         
         std::cout << "Frontend RX Mapping = ";
         std::cout << (rxFrontendMapping.empty() ? "none" : rxFrontendMapping) << '\n';
