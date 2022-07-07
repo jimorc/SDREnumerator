@@ -19,6 +19,7 @@ namespace SDR
             const SoapySDR::Kwargs getHardwareInfo() const;
             const std::string getRXFrontendMapping() const;
             size_t getNumberOfRXChannels() const;
+            SoapySDR::Kwargs getRXChannelInfo(size_t channel) const;
         private:
             SoapySDR::Device* _device;
     };

@@ -40,4 +40,9 @@ namespace SDR
     {
         return _device->getNumChannels(SOAPY_SDR_RX);
     }
+
+    SoapySDR::Kwargs Device::getRXChannelInfo(size_t channel) const
+    {
+        return _device->getChannelInfo(SOAPY_SDR_RX, channel);
+    }
 }
