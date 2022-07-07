@@ -64,9 +64,9 @@ int main()
 
         SDR::Device dev = SDR::Device(kwargs);
         SoapySDR::Device* device = dev;
-        const auto& driverKey = dev.getDriverKey();
+        const auto driverKey = dev.getDriverKey();
         std::cout << "Driver key = " << driverKey << '\n';
-        const auto& hardwareKey = device->getHardwareKey();
+        const auto hardwareKey = dev.getHardwareKey();
         std::cout << "Hardware key = " << hardwareKey << '\n';
         auto info = device->getHardwareInfo();
         std::cout << "Hardware Info:\n";

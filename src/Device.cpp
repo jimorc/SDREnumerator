@@ -20,4 +20,9 @@ namespace SDR
     {
         return _device->getDriverKey();
     }
+
+    const std::string Device::getHardwareKey() const
+    {
+        return _device->getHardwareKey();
+    }
 }
