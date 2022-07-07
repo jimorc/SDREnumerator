@@ -94,11 +94,11 @@ int main()
         std::cout << "Frontend TX Mapping = ";
         std::cout << (txFrontendMapping.empty() ? "none" : txFrontendMapping) << '\n';
 
-        const auto txNumChannels = device->getNumChannels(SOAPY_SDR_TX);
+        const auto txNumChannels = dev.getNumberOfTXChannels();
         std::cout << "Number of TX channels = " << txNumChannels << '\n';
         for(size_t channel = 0; channel < txNumChannels; ++channel)
         {
-            auto channelInfo = device->getChannelInfo(SOAPY_SDR_TX, channel);
+            auto channelInfo = dev.getTXChannelInfo(channel);
             std::cout << "TX Channel " << channel << " Info: \n";
             Print::printStringMapOrNone(channelInfo, 8);
             auto txStreamFormats = device->getStreamFormats(SOAPY_SDR_TX, channel);
