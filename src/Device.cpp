@@ -36,6 +36,11 @@ namespace SDR
         return _device->getFrontendMapping(SOAPY_SDR_RX);
     }
 
+    const std::string Device::getTXFrontendMapping() const
+    {
+        return _device->getFrontendMapping(SOAPY_SDR_TX);
+    }
+
     size_t Device::getNumberOfRXChannels() const
     {
         return _device->getNumChannels(SOAPY_SDR_RX);

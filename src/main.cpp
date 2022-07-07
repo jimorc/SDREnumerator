@@ -89,7 +89,7 @@ int main()
             Print::printStrings(rxStreamFormats, 8);
         }
 
-        const auto& txFrontendMapping = device->getFrontendMapping(SOAPY_SDR_TX);
+        const auto& txFrontendMapping = dev.getTXFrontendMapping();
         
         std::cout << "Frontend TX Mapping = ";
         std::cout << (txFrontendMapping.empty() ? "none" : txFrontendMapping) << '\n';
