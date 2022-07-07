@@ -18,7 +18,13 @@ target_link_libraries(SDREnumerator
     SoapySDR
     SDR)
 
-add_library(SDR SHARED src/Device.cpp include/Device.h)
+add_library(SDR 
+    SHARED 
+    src/Device.cpp 
+    src/Devices.cpp
+    include/Device.h
+    include/Devices.h
+    )
 
 target_compile_features(SDR PRIVATE cxx_std_20)
     

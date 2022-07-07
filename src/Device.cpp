@@ -5,11 +5,19 @@ namespace SDR
     Device::Device(const SoapySDR::Kwargs& kwargs)
     {
         _device = SoapySDR::Device::make(kwargs);
+        _kwargs = kwargs;
+    }
+
+    Device::Device(Device&& dev)
+    {
+        _device = dev._device;
+        _kwargs = dev._kwargs;
+        dev._device = nullptr;
     }
 
     Device::~Device()
     {
-        if(_device != 0)
+        if(_device != nullptr)
         {
             SoapySDR::Device::unmake(_device);
             _device = nullptr;

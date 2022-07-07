@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../include/Device.h"
+#include "../include/Devices.h"
 
 using namespace SoapySDR;
 
@@ -50,11 +51,13 @@ class Print
 
 int main()
 {
-    std::vector<Kwargs> kList = Device::enumerate();
+    std::vector<SDR::Device> devices = SDR::Devices::getDevices();
  
-    std::cout << "Number of SDRs = " << kList.size() << '\n'; 
-    for(auto& kwargs : kList)
+    std::cout << "Number of SDRs = " << devices.size() << '\n'; 
+
+    for(auto& device : devices)
     {
+        SoapySDR::Kwargs kwargs = device;
         if(kwargs.find("tuner") != kwargs.end())
         {
             std::cout << "Tuner: " << kwargs["tuner"] << '\n';

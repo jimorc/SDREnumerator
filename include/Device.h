@@ -9,11 +9,12 @@ namespace SDR
             Device() = delete;
             Device(const SoapySDR::Kwargs& kwargs);
             Device(const Device&) = delete;
-            Device(Device&&) = delete;
+            Device(Device&&);
             ~Device();
             Device& operator=(const Device&) = delete;
             Device&& operator=(Device&&) = delete;
             operator SoapySDR::Device*() const { return _device; }
+            operator SoapySDR::Kwargs() const { return _kwargs; }
             const std::string getDriverKey() const;
             const std::string getHardwareKey() const;
             const SoapySDR::Kwargs getHardwareInfo() const;
@@ -27,5 +28,6 @@ namespace SDR
             const std::vector<std::string> getTXStreamFormats(size_t channel) const;
         private:
             SoapySDR::Device* _device;
+            std::map<std::string, std::string> _kwargs;
     };
 }
