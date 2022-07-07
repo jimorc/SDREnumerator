@@ -63,7 +63,6 @@ int main()
         Print::printStringMap(kwargs, 4);
 
         SDR::Device dev = SDR::Device(kwargs);
-        SoapySDR::Device* device = dev;
         const auto driverKey = dev.getDriverKey();
         std::cout << "Driver key = " << driverKey << '\n';
         const auto hardwareKey = dev.getHardwareKey();
@@ -101,7 +100,7 @@ int main()
             auto channelInfo = dev.getTXChannelInfo(channel);
             std::cout << "TX Channel " << channel << " Info: \n";
             Print::printStringMapOrNone(channelInfo, 8);
-            auto txStreamFormats = device->getStreamFormats(SOAPY_SDR_TX, channel);
+            auto txStreamFormats = dev.getTXStreamFormats(channel);
             std::cout << "    TX Stream Formats:\n";
             Print::printStrings(txStreamFormats, 8);
         }
