@@ -30,4 +30,14 @@ namespace SDR
     {
         return _device->getHardwareInfo();
     }
+
+    const std::string Device::getRXFrontendMapping() const
+    {
+        return _device->getFrontendMapping(SOAPY_SDR_RX);
+    }
+
+    size_t Device::getNumberOfRXChannels() const
+    {
+        return _device->getNumChannels(SOAPY_SDR_RX);
+    }
 }

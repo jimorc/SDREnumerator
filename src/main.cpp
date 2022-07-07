@@ -76,7 +76,7 @@ int main()
         std::cout << "Frontend RX Mapping = ";
         std::cout << (rxFrontendMapping.empty() ? "none" : rxFrontendMapping) << '\n';
 
-        const auto rxNumChannels = device->getNumChannels(SOAPY_SDR_RX);
+        const auto rxNumChannels = dev.getNumberOfRXChannels();
         std::cout << "Number of RX channels = " << rxNumChannels << '\n';
         for(size_t channel = 0; channel < rxNumChannels; ++channel)
         {
