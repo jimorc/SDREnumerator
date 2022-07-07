@@ -57,53 +57,50 @@ int main()
 
     for(auto& device : devices)
     {
-        SoapySDR::Kwargs kwargs = device;
-        if(kwargs.find("tuner") != kwargs.end())
-        {
-            std::cout << "Tuner: " << kwargs["tuner"] << '\n';
-        }
+        std::cout << "Tuner: " << device["tuner"] << '\n';
+
         std::cout << "All Device Arguments:\n";
+        SoapySDR::Kwargs kwargs = device;
         Print::printStringMap(kwargs, 4);
 
-        SDR::Device dev = SDR::Device(kwargs);
-        const auto driverKey = dev.getDriverKey();
+        const auto driverKey = device.getDriverKey();
         std::cout << "Driver key = " << driverKey << '\n';
-        const auto hardwareKey = dev.getHardwareKey();
+        const auto hardwareKey = device.getHardwareKey();
         std::cout << "Hardware key = " << hardwareKey << '\n';
-        auto info = dev.getHardwareInfo();
+        auto info = device.getHardwareInfo();
         std::cout << "Hardware Info:\n";
         Print::printStringMap(info, 4);
-        const auto& rxFrontendMapping = dev.getRXFrontendMapping();
+        const auto& rxFrontendMapping = device.getRXFrontendMapping();
         
         std::cout << "Frontend RX Mapping = ";
         std::cout << (rxFrontendMapping.empty() ? "none" : rxFrontendMapping) << '\n';
 
-        const auto rxNumChannels = dev.getNumberOfRXChannels();
+        const auto rxNumChannels = device.getNumberOfRXChannels();
         std::cout << "Number of RX channels = " << rxNumChannels << '\n';
         for(size_t channel = 0; channel < rxNumChannels; ++channel)
         {
-            auto channelInfo = dev.getRXChannelInfo(channel);
+            auto channelInfo = device.getRXChannelInfo(channel);
             std::cout << "RX Channel " << channel << " Info: \n";
             Print::printStringMapOrNone(channelInfo, 4); 
 
-            auto rxStreamFormats = dev.getRXStreamFormats(channel);
+            auto rxStreamFormats = device.getRXStreamFormats(channel);
             std::cout << "    RX Stream Formats:\n";
             Print::printStrings(rxStreamFormats, 8);
         }
 
-        const auto& txFrontendMapping = dev.getTXFrontendMapping();
+        const auto& txFrontendMapping = device.getTXFrontendMapping();
         
         std::cout << "Frontend TX Mapping = ";
         std::cout << (txFrontendMapping.empty() ? "none" : txFrontendMapping) << '\n';
 
-        const auto txNumChannels = dev.getNumberOfTXChannels();
+        const auto txNumChannels = device.getNumberOfTXChannels();
         std::cout << "Number of TX channels = " << txNumChannels << '\n';
         for(size_t channel = 0; channel < txNumChannels; ++channel)
         {
-            auto channelInfo = dev.getTXChannelInfo(channel);
+            auto channelInfo = device.getTXChannelInfo(channel);
             std::cout << "TX Channel " << channel << " Info: \n";
             Print::printStringMapOrNone(channelInfo, 8);
-            auto txStreamFormats = dev.getTXStreamFormats(channel);
+            auto txStreamFormats = device.getTXStreamFormats(channel);
             std::cout << "    TX Stream Formats:\n";
             Print::printStrings(txStreamFormats, 8);
         }

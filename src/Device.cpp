@@ -2,16 +2,16 @@
 
 namespace SDR
 {
-    Device::Device(const SoapySDR::Kwargs& kwargs)
+    Device::Device(const SoapySDR::Kwargs& kwargs) 
+        : _kwargs(kwargs)
     {
         _device = SoapySDR::Device::make(kwargs);
-        _kwargs = kwargs;
     }
 
     Device::Device(Device&& dev)
+        : _kwargs(dev._kwargs)
     {
         _device = dev._device;
-        _kwargs = dev._kwargs;
         dev._device = nullptr;
     }
 
@@ -22,6 +22,19 @@ namespace SDR
             SoapySDR::Device::unmake(_device);
             _device = nullptr;
         }
+    }
+
+    const std::string Device::operator[](const std::string& key) const
+    {
+        if(_kwargs.find(key) != _kwargs.cend())
+        {
+            return _kwargs.at(key);
+        }
+        else
+        {
+            return "not found";
+        }
+
     }
 
     const std::string Device::getDriverKey()  const

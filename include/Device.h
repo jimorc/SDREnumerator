@@ -13,6 +13,7 @@ namespace SDR
             ~Device();
             Device& operator=(const Device&) = delete;
             Device&& operator=(Device&&) = delete;
+            const std::string operator[](const std::string& key) const;
             operator SoapySDR::Device*() const { return _device; }
             operator SoapySDR::Kwargs() const { return _kwargs; }
             const std::string getDriverKey() const;
