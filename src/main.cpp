@@ -68,7 +68,7 @@ int main()
         std::cout << "Driver key = " << driverKey << '\n';
         const auto hardwareKey = dev.getHardwareKey();
         std::cout << "Hardware key = " << hardwareKey << '\n';
-        auto info = device->getHardwareInfo();
+        auto info = dev.getHardwareInfo();
         std::cout << "Hardware Info:\n";
         Print::printStringMap(info, 4);
         const auto& rxFrontendMapping = device->getFrontendMapping(SOAPY_SDR_RX);

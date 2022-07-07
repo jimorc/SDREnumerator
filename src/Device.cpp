@@ -25,4 +25,9 @@ namespace SDR
     {
         return _device->getHardwareKey();
     }
+
+    const SoapySDR::Kwargs Device::getHardwareInfo() const
+    {
+        return _device->getHardwareInfo();
+    }
 }

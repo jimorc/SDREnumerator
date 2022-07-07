@@ -16,6 +16,7 @@ namespace SDR
             operator SoapySDR::Device*() const { return _device; }
             const std::string getDriverKey() const;
             const std::string getHardwareKey() const;
+            const SoapySDR::Kwargs getHardwareInfo() const;
         private:
             SoapySDR::Device* _device;
     };
