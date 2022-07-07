@@ -15,4 +15,9 @@ namespace SDR
             _device = nullptr;
         }
     }
+
+    const std::string Device::getDriverKey()  const
+    {
+        return _device->getDriverKey();
+    }
 }
