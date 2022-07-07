@@ -84,7 +84,7 @@ int main()
             std::cout << "RX Channel " << channel << " Info: \n";
             Print::printStringMapOrNone(channelInfo, 4); 
 
-            auto rxStreamFormats = device->getStreamFormats(SOAPY_SDR_RX, channel);
+            auto rxStreamFormats = dev.getRXStreamFormats(channel);
             std::cout << "    RX Stream Formats:\n";
             Print::printStrings(rxStreamFormats, 8);
         }
