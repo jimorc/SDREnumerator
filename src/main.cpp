@@ -1,5 +1,5 @@
 #include <iostream>
-#include "SoapySDR/Device.hpp"
+#include "../include/Device.h"
 
 using namespace SoapySDR;
 
@@ -62,7 +62,8 @@ int main()
         std::cout << "All Device Arguments:\n";
         Print::printStringMap(kwargs, 4);
 
-        Device* device = Device::make(kwargs);
+        SDR::Device dev = SDR::Device(kwargs);
+        SoapySDR::Device* device = dev;
         const auto& driverKey = device->getDriverKey();
         std::cout << "Driver key = " << driverKey << '\n';
         const auto& hardwareKey = device->getHardwareKey();
@@ -104,7 +105,5 @@ int main()
             std::cout << "    TX Stream Formats:\n";
             Print::printStrings(txStreamFormats, 8);
         }
-
-        Device::unmake(device);
     }
 }
