@@ -80,7 +80,7 @@ int main()
         std::cout << "Number of RX channels = " << rxNumChannels << '\n';
         for(size_t channel = 0; channel < rxNumChannels; ++channel)
         {
-            auto channelInfo = device->getChannelInfo(SOAPY_SDR_RX, channel);
+            auto channelInfo = dev.getRXChannelInfo(channel);
             std::cout << "RX Channel " << channel << " Info: \n";
             Print::printStringMapOrNone(channelInfo, 4); 
 
