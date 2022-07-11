@@ -87,7 +87,7 @@ class Print
             std::cout << "Number of RX channels = " << rxNumChannels << '\n';
             for(size_t channel = 0; channel < rxNumChannels; ++channel)
             {
-                auto channelInfo = device.getRXChannelInfo(channel);
+                auto channelInfo = device.getChannelInfo(SOAPY_SDR_RX, channel);
                 std::cout << "RX Channel " << channel << " Info: \n";
                 Print::printStringMapOrNone(channelInfo, 4); 
 
@@ -110,7 +110,7 @@ class Print
             std::cout << "Number of TX channels = " << txNumChannels << '\n';
             for(size_t channel = 0; channel < txNumChannels; ++channel)
             {
-                auto channelInfo = device.getTXChannelInfo(channel);
+                auto channelInfo = device.getChannelInfo(SOAPY_SDR_TX, channel);
                 std::cout << "TX Channel " << channel << " Info: \n";
                 Print::printStringMapOrNone(channelInfo, 4); 
 

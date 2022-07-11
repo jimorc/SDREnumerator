@@ -62,14 +62,10 @@ namespace SDR
         return _device->getNumChannels(direction);
     }
 
-    SoapySDR::Kwargs Device::getRXChannelInfo(size_t channel) const
+    std::map<std::string, std::string> Device::getChannelInfo(const size_t channel,
+                                                const int direction) const
     {
-        return _device->getChannelInfo(SOAPY_SDR_RX, channel);
-    }
-
-    SoapySDR::Kwargs Device::getTXChannelInfo(size_t channel) const
-    {
-        return _device->getChannelInfo(SOAPY_SDR_TX, channel);
+        return _device->getChannelInfo(direction, channel);
     }
 
     const std::vector<std::string> Device::getRXStreamFormats(size_t channel) const
