@@ -67,6 +67,13 @@ class Print
             std::cout << "Hardware key = " << hardwareKey << '\n';
         }
 
+        static void printHardwareInfo(SDR::Device& device)
+        {
+            auto info = device.getHardwareInfo();
+            std::cout << "Hardware Info:\n";
+            Print::printStringMap(info, 4);          
+        }
+
         static void printDeviceProperties(SDR::Device& device)
         {
         std::cout << "Tuner: " << device["tuner"] << '\n';
@@ -74,9 +81,8 @@ class Print
         Print::printAllDeviceArguments(device);
         Print::printDriverKey(device);
         Print::printHardwareKey(device);
-        auto info = device.getHardwareInfo();
-        std::cout << "Hardware Info:\n";
-        Print::printStringMap(info, 4);
+        Print::printHardwareInfo(device);
+        
         const auto& rxFrontendMapping = device.getRXFrontendMapping();
         
         std::cout << "Frontend RX Mapping = ";
