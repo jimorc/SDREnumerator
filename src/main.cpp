@@ -74,6 +74,13 @@ class Print
             Print::printStringMap(info, 4);          
         }
 
+        static void printRXFrontendMapping(SDR::Device& device)
+        {
+            const auto& rxFrontendMapping = device.getFrontendMapping(SOAPY_SDR_RX);
+            std::cout << "Frontend RX Mapping = ";
+            std::cout << (rxFrontendMapping.empty() ? "none" : rxFrontendMapping) << '\n';
+        }
+
         static void printDeviceProperties(SDR::Device& device)
         {
         std::cout << "Tuner: " << device["tuner"] << '\n';
@@ -83,10 +90,7 @@ class Print
         Print::printHardwareKey(device);
         Print::printHardwareInfo(device);
 
-        const auto& rxFrontendMapping = device.getFrontendMapping(SOAPY_SDR_RX);
-        
-        std::cout << "Frontend RX Mapping = ";
-        std::cout << (rxFrontendMapping.empty() ? "none" : rxFrontendMapping) << '\n';
+        Print::printRXFrontendMapping(device);
 
         const auto rxNumChannels = device.getNumberOfRXChannels();
         std::cout << "Number of RX channels = " << rxNumChannels << '\n';
