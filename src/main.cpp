@@ -47,22 +47,19 @@ class Print
                 printStringMap(stringMap, indentSpaces);
             }
         }
-};
 
-int main()
-{
-    std::vector<SDR::Device> devices = SDR::Devices::getDevices();
- 
-    std::cout << "Number of SDRs = " << devices.size() << '\n'; 
+        static void printAllDeviceArguments(SDR::Device& device)
+        {
+            std::cout << "All Device Arguments:\n";
+            SoapySDR::Kwargs kwargs = device;
+            Print::printStringMap(kwargs, 4);
+        }
 
-    for(auto& device : devices)
-    {
+        static void printDeviceProperties(SDR::Device& device)
+        {
         std::cout << "Tuner: " << device["tuner"] << '\n';
 
-        std::cout << "All Device Arguments:\n";
-        SoapySDR::Kwargs kwargs = device;
-        Print::printStringMap(kwargs, 4);
-
+        Print::printAllDeviceArguments(device);
         const auto driverKey = device.getDriverKey();
         std::cout << "Driver key = " << driverKey << '\n';
         const auto hardwareKey = device.getHardwareKey();
@@ -103,6 +100,19 @@ int main()
             auto txStreamFormats = device.getTXStreamFormats(channel);
             std::cout << "    TX Stream Formats:\n";
             Print::printStrings(txStreamFormats, 8);
-        }
+        }        }
+};
+
+
+
+int main()
+{
+    std::vector<SDR::Device> devices = SDR::Devices::getDevices();
+ 
+    std::cout << "Number of SDRs = " << devices.size() << '\n'; 
+
+    for(auto& device : devices)
+    {
+        Print::printDeviceProperties(device);
     }
 }
