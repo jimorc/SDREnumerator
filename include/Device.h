@@ -19,8 +19,7 @@ namespace SDR
             const std::string getDriverKey() const;
             const std::string getHardwareKey() const;
             const SoapySDR::Kwargs getHardwareInfo() const;
-            const std::string getRXFrontendMapping() const;
-            const std::string getTXFrontendMapping() const;
+            const std::string getFrontendMapping(const int direction) const;
             size_t getNumberOfRXChannels() const;
             size_t getNumberOfTXChannels() const;
             SoapySDR::Kwargs getRXChannelInfo(size_t channel) const;

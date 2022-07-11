@@ -82,8 +82,8 @@ class Print
         Print::printDriverKey(device);
         Print::printHardwareKey(device);
         Print::printHardwareInfo(device);
-        
-        const auto& rxFrontendMapping = device.getRXFrontendMapping();
+
+        const auto& rxFrontendMapping = device.getFrontendMapping(SOAPY_SDR_RX);
         
         std::cout << "Frontend RX Mapping = ";
         std::cout << (rxFrontendMapping.empty() ? "none" : rxFrontendMapping) << '\n';
@@ -101,7 +101,7 @@ class Print
             Print::printStrings(rxStreamFormats, 8);
         }
 
-        const auto& txFrontendMapping = device.getTXFrontendMapping();
+        const auto& txFrontendMapping = device.getFrontendMapping(SOAPY_SDR_TX);
         
         std::cout << "Frontend TX Mapping = ";
         std::cout << (txFrontendMapping.empty() ? "none" : txFrontendMapping) << '\n';
