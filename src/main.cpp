@@ -61,14 +61,19 @@ class Print
         std::cout << "Driver key = " << driverKey << '\n';
         }
 
+        static void printHardwareKey(SDR::Device& device)
+        {
+            const auto hardwareKey = device.getHardwareKey();
+            std::cout << "Hardware key = " << hardwareKey << '\n';
+        }
+
         static void printDeviceProperties(SDR::Device& device)
         {
         std::cout << "Tuner: " << device["tuner"] << '\n';
 
         Print::printAllDeviceArguments(device);
         Print::printDriverKey(device);
-        const auto hardwareKey = device.getHardwareKey();
-        std::cout << "Hardware key = " << hardwareKey << '\n';
+        Print::printHardwareKey(device);
         auto info = device.getHardwareInfo();
         std::cout << "Hardware Info:\n";
         Print::printStringMap(info, 4);
