@@ -20,8 +20,7 @@ namespace SDR
             const std::string getHardwareKey() const;
             const SoapySDR::Kwargs getHardwareInfo() const;
             const std::string getFrontendMapping(const int direction) const;
-            size_t getNumberOfRXChannels() const;
-            size_t getNumberOfTXChannels() const;
+            size_t getNumberOfChannels(const int direction) const;
             SoapySDR::Kwargs getRXChannelInfo(size_t channel) const;
             SoapySDR::Kwargs getTXChannelInfo(size_t channel) const;
             const std::vector<std::string> getRXStreamFormats(size_t channel) const;
