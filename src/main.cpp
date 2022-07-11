@@ -25,7 +25,7 @@ class Print
         }
 
         static void printStringMap(std::map<std::string, std::string>& stringMap,
-                                   uint indentSpaces)
+                                   const uint indentSpaces)
         {
             std::string indent(indentSpaces, ' ');
            for(const auto& [key, _] : stringMap)
@@ -35,7 +35,7 @@ class Print
         }
 
         static void printStringMapOrNone(std::map<std::string, std::string>& stringMap,
-                                   uint indentSpaces)
+                                   const uint indentSpaces)
         {
             if(stringMap.size() == 0)
             {
@@ -48,40 +48,56 @@ class Print
             }
         }
 
-        static void printAllDeviceArguments(SDR::Device& device)
+        static void printAllDeviceArguments(const SDR::Device& device)
         {
             std::cout << "All Device Arguments:\n";
             SoapySDR::Kwargs kwargs = device;
             Print::printStringMap(kwargs, 4);
         }
 
-        static void printDriverKey(SDR::Device& device)
+        static void printDriverKey(const SDR::Device& device)
         {
         const auto driverKey = device.getDriverKey();
         std::cout << "Driver key = " << driverKey << '\n';
         }
 
-        static void printHardwareKey(SDR::Device& device)
+        static void printHardwareKey(const SDR::Device& device)
         {
             const auto hardwareKey = device.getHardwareKey();
             std::cout << "Hardware key = " << hardwareKey << '\n';
         }
 
-        static void printHardwareInfo(SDR::Device& device)
+        static void printHardwareInfo(const SDR::Device& device)
         {
             auto info = device.getHardwareInfo();
             std::cout << "Hardware Info:\n";
             Print::printStringMap(info, 4);          
         }
 
-        static void printRXFrontendMapping(SDR::Device& device)
+        static void printRXFrontendMapping(const SDR::Device& device)
         {
             const auto& rxFrontendMapping = device.getFrontendMapping(SOAPY_SDR_RX);
             std::cout << "Frontend RX Mapping = ";
             std::cout << (rxFrontendMapping.empty() ? "none" : rxFrontendMapping) << '\n';
         }
 
-        static void printDeviceProperties(SDR::Device& device)
+        static void printRXChannelProperties(const SDR::Device& device)
+        {
+            const auto rxNumChannels = device.getNumberOfRXChannels();
+            std::cout << "Number of RX channels = " << rxNumChannels << '\n';
+            for(size_t channel = 0; channel < rxNumChannels; ++channel)
+            {
+                auto channelInfo = device.getRXChannelInfo(channel);
+                std::cout << "RX Channel " << channel << " Info: \n";
+                Print::printStringMapOrNone(channelInfo, 4); 
+
+                auto rxStreamFormats = device.getRXStreamFormats(channel);
+                std::cout << "    RX Stream Formats:\n";
+                Print::printStrings(rxStreamFormats, 8);
+            }
+        }
+
+        static void printDeviceProperties(const SDR::Device& device)
         {
         std::cout << "Tuner: " << device["tuner"] << '\n';
 
@@ -91,19 +107,7 @@ class Print
         Print::printHardwareInfo(device);
 
         Print::printRXFrontendMapping(device);
-
-        const auto rxNumChannels = device.getNumberOfRXChannels();
-        std::cout << "Number of RX channels = " << rxNumChannels << '\n';
-        for(size_t channel = 0; channel < rxNumChannels; ++channel)
-        {
-            auto channelInfo = device.getRXChannelInfo(channel);
-            std::cout << "RX Channel " << channel << " Info: \n";
-            Print::printStringMapOrNone(channelInfo, 4); 
-
-            auto rxStreamFormats = device.getRXStreamFormats(channel);
-            std::cout << "    RX Stream Formats:\n";
-            Print::printStrings(rxStreamFormats, 8);
-        }
+        Print::printRXChannelProperties(device);
 
         const auto& txFrontendMapping = device.getFrontendMapping(SOAPY_SDR_TX);
         
