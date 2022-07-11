@@ -52,25 +52,25 @@ namespace SDR
         return _device->getHardwareInfo();
     }
 
-    const std::string Device::getFrontendMapping(const int direction) const
+    const std::string Device::getFrontendMapping(const Direction direction) const
     {
-        return _device->getFrontendMapping(direction);
+        return _device->getFrontendMapping(static_cast<int>(direction));
     }
 
-    size_t Device::getNumberOfChannels(const int direction) const
+    size_t Device::getNumberOfChannels(const Direction direction) const
     {
-        return _device->getNumChannels(direction);
+        return _device->getNumChannels(static_cast<int>(direction));
     }
 
     std::map<std::string, std::string> Device::getChannelInfo(const size_t channel,
-                                                const int direction) const
+                                                const Direction direction) const
     {
-        return _device->getChannelInfo(direction, channel);
+        return _device->getChannelInfo(static_cast<int>(direction), channel);
     }
 
-    const std::vector<std::string> Device::getStreamFormats(const int direction,
-                                            const size_t channel) const
+    const std::vector<std::string> Device::getStreamFormats(const size_t channel,
+                                            const Direction direction) const
     {
-        return _device->getStreamFormats(direction, channel);
+        return _device->getStreamFormats(static_cast<int>(direction), channel);
     }
 }

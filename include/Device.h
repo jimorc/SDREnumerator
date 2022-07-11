@@ -1,5 +1,6 @@
 #pragma once
 #include "SoapySDR/Device.hpp"
+#include "Enums.h"
 
 namespace SDR
 {
@@ -19,12 +20,12 @@ namespace SDR
             const std::string getDriverKey() const;
             const std::string getHardwareKey() const;
             const SoapySDR::Kwargs getHardwareInfo() const;
-            const std::string getFrontendMapping(const int direction) const;
-            size_t getNumberOfChannels(const int direction) const;
+            const std::string getFrontendMapping(const Direction direction) const; 
+            size_t getNumberOfChannels(const Direction direction) const;
             std::map<std::string, std::string> getChannelInfo(const size_t channel,
-                                                const int direction) const;
-            const std::vector<std::string> getStreamFormats(const int direction,
-                                            const size_t channel) const;
+                                                const Direction direction) const;
+            const std::vector<std::string> getStreamFormats(const size_t channel,
+                                            const Direction direction) const;
         private:
             SoapySDR::Device* _device;
             std::map<std::string, std::string> _kwargs;

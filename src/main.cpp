@@ -76,22 +76,22 @@ class Print
 
         static void printRXFrontendMapping(const SDR::Device& device)
         {
-            const auto& rxFrontendMapping = device.getFrontendMapping(SOAPY_SDR_RX);
+            const auto& rxFrontendMapping = device.getFrontendMapping(SDR::Direction::RX);
             std::cout << "Frontend RX Mapping = ";
             std::cout << (rxFrontendMapping.empty() ? "none" : rxFrontendMapping) << '\n';
         }
 
         static void printRXChannelProperties(const SDR::Device& device)
         {
-            const auto rxNumChannels = device.getNumberOfChannels(SOAPY_SDR_RX);
+            const auto rxNumChannels = device.getNumberOfChannels(SDR::Direction::RX);
             std::cout << "Number of RX channels = " << rxNumChannels << '\n';
             for(size_t channel = 0; channel < rxNumChannels; ++channel)
             {
-                auto channelInfo = device.getChannelInfo(SOAPY_SDR_RX, channel);
+                auto channelInfo = device.getChannelInfo(channel, SDR::Direction::RX);
                 std::cout << "RX Channel " << channel << " Info: \n";
                 Print::printStringMapOrNone(channelInfo, 4); 
 
-                auto rxStreamFormats = device.getStreamFormats(SOAPY_SDR_RX, channel);
+                auto rxStreamFormats = device.getStreamFormats(channel, SDR::Direction::RX);
                 std::cout << "    RX Stream Formats:\n";
                 Print::printStrings(rxStreamFormats, 8);
             }
@@ -99,22 +99,22 @@ class Print
 
         static void printTXFrontendMapping(const SDR::Device& device)
         {
-            const auto& txFrontendMapping = device.getFrontendMapping(SOAPY_SDR_TX);
+            const auto& txFrontendMapping = device.getFrontendMapping(SDR::Direction::TX);
             std::cout << "Frontend TX Mapping = ";
             std::cout << (txFrontendMapping.empty() ? "none" : txFrontendMapping) << '\n';
         }
 
         static void printTXChannelProperties(const SDR::Device& device)
         {
-            const auto txNumChannels = device.getNumberOfChannels(SOAPY_SDR_TX);
+            const auto txNumChannels = device.getNumberOfChannels(SDR::Direction::TX);
             std::cout << "Number of TX channels = " << txNumChannels << '\n';
             for(size_t channel = 0; channel < txNumChannels; ++channel)
             {
-                auto channelInfo = device.getChannelInfo(SOAPY_SDR_TX, channel);
+                auto channelInfo = device.getChannelInfo(channel, SDR::Direction::TX);
                 std::cout << "TX Channel " << channel << " Info: \n";
                 Print::printStringMapOrNone(channelInfo, 4); 
 
-                auto txStreamFormats = device.getStreamFormats(SOAPY_SDR_TX, channel);
+                auto txStreamFormats = device.getStreamFormats(channel, SDR::Direction::TX);
                 std::cout << "    TX Stream Formats:\n";
                 Print::printStrings(txStreamFormats, 8);
             }
