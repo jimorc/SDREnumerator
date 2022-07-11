@@ -73,4 +73,13 @@ namespace SDR
     {
         return _device->getStreamFormats(static_cast<int>(direction), channel);
     }
+
+    std::tuple<std::string, float> Device::getNativeStreamFormat(const size_t channel,
+                                        const Direction direction) const
+    {
+        double fullScale;
+        auto format =  _device->getNativeStreamFormat(static_cast<int>(direction),
+                            channel, fullScale);
+        return std::make_tuple(format, fullScale);
+    }
 }

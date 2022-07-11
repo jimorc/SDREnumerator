@@ -94,6 +94,12 @@ class Print
                 auto rxStreamFormats = device.getStreamFormats(channel, SDR::Direction::RX);
                 std::cout << "    RX Stream Formats:\n";
                 Print::printStrings(rxStreamFormats, 8);
+
+                auto [format, fullScale] = device.getNativeStreamFormat(channel,
+                        SDR::Direction::RX);
+                std::cout << "    RX Native Stream Format: ";
+                std::cout << (format.empty() ? "none" : format);
+                std::cout << ", Full scale value: " << fullScale << '\n';
             }
         }
 
@@ -117,7 +123,13 @@ class Print
                 auto txStreamFormats = device.getStreamFormats(channel, SDR::Direction::TX);
                 std::cout << "    TX Stream Formats:\n";
                 Print::printStrings(txStreamFormats, 8);
-            }
+
+                auto [format, fullScale] = device.getNativeStreamFormat(channel,
+                        SDR::Direction::TX);
+                std::cout << "    TX Native Stream Format: ";
+                std::cout << (format.empty() ? "none" : format);
+                std::cout << ", Full scale value: " << fullScale << '\n';
+             }
         }
         static void printDeviceProperties(const SDR::Device& device)
         {
