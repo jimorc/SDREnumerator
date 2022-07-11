@@ -91,7 +91,7 @@ class Print
                 std::cout << "RX Channel " << channel << " Info: \n";
                 Print::printStringMapOrNone(channelInfo, 4); 
 
-                auto rxStreamFormats = device.getRXStreamFormats(channel);
+                auto rxStreamFormats = device.getStreamFormats(SOAPY_SDR_RX, channel);
                 std::cout << "    RX Stream Formats:\n";
                 Print::printStrings(rxStreamFormats, 8);
             }
@@ -114,7 +114,7 @@ class Print
                 std::cout << "TX Channel " << channel << " Info: \n";
                 Print::printStringMapOrNone(channelInfo, 4); 
 
-                auto txStreamFormats = device.getTXStreamFormats(channel);
+                auto txStreamFormats = device.getStreamFormats(SOAPY_SDR_TX, channel);
                 std::cout << "    TX Stream Formats:\n";
                 Print::printStrings(txStreamFormats, 8);
             }

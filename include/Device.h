@@ -23,8 +23,8 @@ namespace SDR
             size_t getNumberOfChannels(const int direction) const;
             std::map<std::string, std::string> getChannelInfo(const size_t channel,
                                                 const int direction) const;
-            const std::vector<std::string> getRXStreamFormats(size_t channel) const;
-            const std::vector<std::string> getTXStreamFormats(size_t channel) const;
+            const std::vector<std::string> getStreamFormats(const int direction,
+                                            const size_t channel) const;
         private:
             SoapySDR::Device* _device;
             std::map<std::string, std::string> _kwargs;
