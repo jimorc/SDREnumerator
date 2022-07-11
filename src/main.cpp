@@ -97,6 +97,28 @@ class Print
             }
         }
 
+        static void printTXFrontendMapping(const SDR::Device& device)
+        {
+            const auto& txFrontendMapping = device.getFrontendMapping(SOAPY_SDR_TX);
+            std::cout << "Frontend TX Mapping = ";
+            std::cout << (txFrontendMapping.empty() ? "none" : txFrontendMapping) << '\n';
+        }
+
+        static void printTXChannelProperties(const SDR::Device& device)
+        {
+            const auto txNumChannels = device.getNumberOfTXChannels();
+            std::cout << "Number of TX channels = " << txNumChannels << '\n';
+            for(size_t channel = 0; channel < txNumChannels; ++channel)
+            {
+                auto channelInfo = device.getTXChannelInfo(channel);
+                std::cout << "TX Channel " << channel << " Info: \n";
+                Print::printStringMapOrNone(channelInfo, 4); 
+
+                auto txStreamFormats = device.getTXStreamFormats(channel);
+                std::cout << "    TX Stream Formats:\n";
+                Print::printStrings(txStreamFormats, 8);
+            }
+        }
         static void printDeviceProperties(const SDR::Device& device)
         {
         std::cout << "Tuner: " << device["tuner"] << '\n';
