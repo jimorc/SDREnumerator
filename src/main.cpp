@@ -112,6 +112,28 @@ class Print
             std::cout << (txFrontendMapping.empty() ? "none" : txFrontendMapping) << '\n';
         }
 
+        static void printArgInfoType(SDR::SDRArgInfo& info)
+        {
+            SDR::SDRArgInfo::ArgType type = info.type();
+
+            std::cout << "        Type: ";
+            switch(type)
+            {
+                case SDR::SDRArgInfo::ArgType::BOOL:
+                    std::cout << "bool\n";
+                    break;
+                case SDR::SDRArgInfo::ArgType::INT:
+                    std::cout << "int\n";
+                    break;
+                case SDR::SDRArgInfo::ArgType::FLOAT:
+                    std::cout << "float\n";
+                    break;
+                case SDR::SDRArgInfo::ArgType::STRING:
+                    std::cout << "string\n";
+                    break;
+                }
+        }
+
         static void printRXStreamArgsInfo(const SDR::Device& device, 
                                           const size_t channel)
         {
@@ -125,7 +147,7 @@ class Print
                 std::cout << "        Name: " << argInfo.name() << '\n';
                 std::cout << "        Description: " << argInfo.description() << '\n';
                 std::cout << "        Units: " << argInfo.units() << '\n';
-                std::cout << "        Type: " << argInfo.type() << '\n';
+                Print::printArgInfoType(argInfo);
                 std::cout << "        Range:\n";
                 SDR::SDRRange range = argInfo.range();
                 std::cout << "            Minimum: " << range.minimum() << '\n';

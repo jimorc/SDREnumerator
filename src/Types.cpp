@@ -27,7 +27,7 @@ namespace SDR
         _values["name"] = info.name;
         _values["description"] = info.description;
         _values["units"] = info.units;
-        _values["type"] = info.type;
+        _values["type"] = static_cast<SDR::SDRArgInfo::ArgType>(info.type);
         _values["range"] = info.range;
         _values["options"] = info.options;
         _values["optionNames"] = info.optionNames;
@@ -58,9 +58,9 @@ namespace SDR
         return std::get<std::string>(_values["units"]);
     }
 
-    SoapySDR::ArgInfo::Type SDRArgInfo::type()
+    SDRArgInfo::ArgType SDRArgInfo::type()
     {
-        return std::get<SoapySDR::ArgInfo::Type>(_values["type"]);
+        return std::get<SDR::SDRArgInfo::ArgType>(_values["type"]);
     }
     
     SDR::SDRRange SDRArgInfo::range()

@@ -20,18 +20,25 @@ namespace SDR
     class SDRArgInfo
     {
         public:
+            enum class ArgType
+            {
+                BOOL = SoapySDR::ArgInfo::BOOL,
+                INT = SoapySDR::ArgInfo::INT,
+                FLOAT = SoapySDR::ArgInfo::FLOAT,
+                STRING = SoapySDR::ArgInfo::STRING
+            };
             SDRArgInfo(const SoapySDR::ArgInfo& info);
             std::string key();
             std::string value();
             std::string name();
             std::string description();
             std::string units();
-            SoapySDR::ArgInfo::Type type();
+            ArgType type();
             SDRRange range();
             std::vector<std::string> options();
             std::vector<std::string> optionNames();
         private:
-            std::map<std::string, std::variant<std::string, SoapySDR::ArgInfo::Type,
+            std::map<std::string, std::variant<std::string, ArgType,
                 SDR::SDRRange, std::vector<std::string>>> _values;
     };
 }
