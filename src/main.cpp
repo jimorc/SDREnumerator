@@ -127,7 +127,7 @@ class Print
                 std::cout << "        Units: " << argInfo.units() << '\n';
                 std::cout << "        Type: " << argInfo.type() << '\n';
                 std::cout << "        Range:\n";
-                SoapySDR::Range range = argInfo.range();
+                SDR::SDRRange range = argInfo.range();
                 std::cout << "            Minimum: " << range.minimum() << '\n';
                 std::cout << "            Maximum: " << range.maximum() << '\n';
                 std::cout << "            Range: "  << range.step() << '\n';

@@ -2,6 +2,24 @@
 
 namespace SDR
 {
+    SDRRange::SDRRange(const SoapySDR::Range& range)
+        : _minimum(range.minimum()), _maximum(range.maximum()), _step(range.step()) {}
+
+    double SDRRange::minimum() const
+    {
+        return _minimum;
+    }
+
+    double SDRRange::maximum() const
+    {
+        return _maximum;
+    }
+
+    double SDRRange::step() const
+    {
+        return _step;
+    }
+
     SDRArgInfo::SDRArgInfo(const SoapySDR::ArgInfo& info)
     {
         _values["key"] = info.key;
@@ -45,9 +63,9 @@ namespace SDR
         return std::get<SoapySDR::ArgInfo::Type>(_values["type"]);
     }
     
-    SoapySDR::Range SDRArgInfo::range()
+    SDR::SDRRange SDRArgInfo::range()
     {
-        return std::get<SoapySDR::Range>(_values["range"]);
+        return std::get<SDR::SDRRange>(_values["range"]);
     }
     
     std::vector<std::string> SDRArgInfo::options()

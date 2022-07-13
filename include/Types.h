@@ -4,6 +4,19 @@
 
 namespace SDR
 {
+    class SDRRange
+    {
+        public:
+            SDRRange(const SoapySDR::Range& range);
+            double minimum() const;
+            double maximum() const;
+            double step() const;
+        private:
+            double _minimum;
+            double _maximum;
+            double _step;
+    };
+
     class SDRArgInfo
     {
         public:
@@ -14,11 +27,11 @@ namespace SDR
             std::string description();
             std::string units();
             SoapySDR::ArgInfo::Type type();
-            SoapySDR::Range range();
+            SDRRange range();
             std::vector<std::string> options();
             std::vector<std::string> optionNames();
         private:
             std::map<std::string, std::variant<std::string, SoapySDR::ArgInfo::Type,
-                SoapySDR::Range, std::vector<std::string>>> _values;
+                SDR::SDRRange, std::vector<std::string>>> _values;
     };
 }
