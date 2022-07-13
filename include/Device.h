@@ -30,7 +30,8 @@ namespace SDR
             std::tuple<std::string, float> getNativeStreamFormat(
                 const size_t channel, const Direction direction) const;
             std::vector<SDRArgInfo> getStreamArgsInfo(const size_t channel,
-                                            const Direction direction) const;        private:
+                                            const Direction direction) const;
+        private:
             SoapySDR::Device* _device;
             std::map<std::string, std::string> _kwargs;
     };
