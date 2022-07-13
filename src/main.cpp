@@ -100,6 +100,8 @@ class Print
                 std::cout << "    RX Native Stream Format: ";
                 std::cout << (format.empty() ? "none" : format);
                 std::cout << ", Full scale value: " << fullScale << '\n';
+
+                Print::printRXStreamArgsInfo(device, channel);
             }
         }
 
@@ -108,6 +110,35 @@ class Print
             const auto& txFrontendMapping = device.getFrontendMapping(SDR::Direction::TX);
             std::cout << "Frontend TX Mapping = ";
             std::cout << (txFrontendMapping.empty() ? "none" : txFrontendMapping) << '\n';
+        }
+
+        static void printRXStreamArgsInfo(const SDR::Device& device, 
+                                          const size_t channel)
+        {
+            std::vector<SDR::SDRArgInfo> argsInfo = device.getStreamArgsInfo(channel,
+                                                SDR::Direction::RX);
+            std::cout << "    Stream Args Info for channel " << channel << ":\n";
+            for(auto& argInfo : argsInfo)
+            {
+                std::cout << "        Key: " << argInfo.key() << '\n';
+                std::cout << "        Value: " << argInfo.value() << '\n';
+                std::cout << "        Name: " << argInfo.name() << '\n';
+                std::cout << "        Description: " << argInfo.description() << '\n';
+                std::cout << "        Units: " << argInfo.units() << '\n';
+                std::cout << "        Type: " << argInfo.type() << '\n';
+                std::cout << "        Range:\n";
+                SoapySDR::Range range = argInfo.range();
+                std::cout << "            Minimum: " << range.minimum() << '\n';
+                std::cout << "            Maximum: " << range.maximum() << '\n';
+                std::cout << "            Range: "  << range.step() << '\n';
+                std::vector<std::string> options = argInfo.options();
+                std::cout << "        Options:\n";
+                Print::printStrings(options, 12);
+                std::vector<std::string> optionNames = argInfo.optionNames();
+                std::cout << "        Option Names:\n";
+                Print::printStrings(optionNames, 12);
+                std::cout << '\n';
+            }
         }
 
         static void printTXChannelProperties(const SDR::Device& device)

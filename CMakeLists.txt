@@ -22,8 +22,11 @@ add_library(SDR
     SHARED 
     src/Device.cpp 
     src/Devices.cpp
+    src/Types.cpp
     include/Device.h
     include/Devices.h
+    include/Enums.h
+    include/Types.h
     )
 
 target_compile_features(SDR PRIVATE cxx_std_20)

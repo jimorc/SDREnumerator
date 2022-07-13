@@ -1,3 +1,4 @@
+
 #include "../include/Device.h"
 
 namespace SDR
@@ -81,5 +82,18 @@ namespace SDR
         auto format =  _device->getNativeStreamFormat(static_cast<int>(direction),
                             channel, fullScale);
         return std::make_tuple(format, fullScale);
+    }
+
+    std::vector<SDRArgInfo> Device::getStreamArgsInfo(const size_t channel,
+                                        const Direction direction) const
+    {
+        std::vector<SDRArgInfo> infoVec;
+        std::vector<SoapySDR::ArgInfo> soapyInfoVec = _device->getStreamArgsInfo(
+            static_cast<int>(direction), channel);
+        for(auto& info : soapyInfoVec)
+        {
+            infoVec.push_back(SDRArgInfo(info));
+        }
+        return infoVec;
     }
 }
