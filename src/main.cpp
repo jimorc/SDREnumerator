@@ -142,27 +142,44 @@ class Print
             std::cout << "    Stream Args Info for channel " << channel << ":\n";
             for(auto& argInfo : argsInfo)
             {
-                std::cout << "        Key: " << argInfo.key() << '\n';
-                std::cout << "        Value: " << argInfo.value() << '\n';
-                std::cout << "        Name: " << argInfo.name() << '\n';
-                std::cout << "        Description: " << argInfo.description() << '\n';
-                std::cout << "        Units: " << argInfo.units() << '\n';
-                Print::printArgInfoType(argInfo);
-                std::cout << "        Range:\n";
-                SDR::SDRRange range = argInfo.range();
-                std::cout << "            Minimum: " << range.minimum() << '\n';
-                std::cout << "            Maximum: " << range.maximum() << '\n';
-                std::cout << "            Range: "  << range.step() << '\n';
-                std::vector<std::string> options = argInfo.options();
-                std::cout << "        Options:\n";
-                Print::printStrings(options, 12);
-                std::vector<std::string> optionNames = argInfo.optionNames();
-                std::cout << "        Option Names:\n";
-                Print::printStrings(optionNames, 12);
-                std::cout << '\n';
+                Print::printStreamArgsInfo(argInfo);
             }
         }
 
+        static void printStreamArgsInfo(SDR::SDRArgInfo& argInfo)
+        {
+            std::cout << "        Key: " << argInfo.key() << '\n';
+            std::cout << "        Value: " << argInfo.value() << '\n';
+            std::cout << "        Name: " << argInfo.name() << '\n';
+            std::cout << "        Description: " << argInfo.description() << '\n';
+            std::cout << "        Units: " << argInfo.units() << '\n';
+            Print::printArgInfoType(argInfo);
+            std::cout << "        Range:\n";
+            SDR::SDRRange range = argInfo.range();
+            std::cout << "            Minimum: " << range.minimum() << '\n';
+            std::cout << "            Maximum: " << range.maximum() << '\n';
+            std::cout << "            Range: "  << range.step() << '\n';
+            std::vector<std::string> options = argInfo.options();
+            std::cout << "        Options:\n";
+            Print::printStrings(options, 12);
+            std::vector<std::string> optionNames = argInfo.optionNames();
+            std::cout << "        Option Names:\n";
+            Print::printStrings(optionNames, 12);
+            std::cout << '\n';
+        }
+        
+        static void printTXStreamArgsInfo(const SDR::Device& device, 
+                                          const size_t channel)
+        {
+            std::vector<SDR::SDRArgInfo> argsInfo = device.getStreamArgsInfo(channel,
+                                                SDR::Direction::TX);
+            std::cout << "    Stream Args Info for channel " << channel << ":\n";
+            for(auto& argInfo : argsInfo)
+            {
+                Print::printStreamArgsInfo(argInfo);
+            }
+        }
+        
         static void printTXChannelProperties(const SDR::Device& device)
         {
             const auto txNumChannels = device.getNumberOfChannels(SDR::Direction::TX);
